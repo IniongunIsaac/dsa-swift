@@ -25,7 +25,30 @@ class Node {
 }
 
 func hasCycle(first: Node) -> Bool {
-    // here...
+    var currentNode = first
+    var dataSet = Set<Int?>()
+    while currentNode.next != nil {
+        if dataSet.contains(currentNode.next?.data) {
+            return true
+        }
+        dataSet.insert(currentNode.data)
+        currentNode = currentNode.next!
+    }
+    return false
+}
+
+func hasCycleTortoiseHare(node: Node) -> Bool {
+    var slow: Node? = node
+    var fast: Node? = node
+    
+    while fast != nil && fast?.next != nil {
+        slow = slow?.next
+        fast = fast?.next?.next
+        
+        if slow?.data == fast?.data { // slow === fast. '===' checks for reference equality
+            return true
+        }
+    }
     return false
 }
 
@@ -42,3 +65,4 @@ node4.next = node5
 node5.next = node3
 
 hasCycle(first: head)
+hasCycleTortoiseHare(node: head)
