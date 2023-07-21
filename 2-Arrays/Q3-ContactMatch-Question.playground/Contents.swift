@@ -17,8 +17,21 @@ import Foundation
  */
 
 public func solution(_ A : [String], _ B : [String], _ P : String) -> String {
-    // do your work here
-    return ""
+    if A.count != B.count || A.isEmpty || B.isEmpty || P.isEmpty {
+        return "NO CONTACT"
+    }
+    
+    for (index, element) in B.enumerated() {
+        if element == P {
+            return A[index]
+        }
+        
+        if element.contains(P) {
+            return A[index]
+        }
+    }
+    
+    return "NO CONTACT"
 }
 
 let A = ["pim", "pom"]

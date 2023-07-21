@@ -48,8 +48,38 @@ func printLinkedList(_ head: Node?) {
     print(result)
 }
 
-func findMerge(headA: Node?, headB: Node?) -> Int? {
-    // Here...
+func findMergeBruteForce(headA: Node?, headB: Node?) -> Int? {
+    var currentNodeA = headA
+    while currentNodeA?.next != nil {
+        var currentNodeB = headB
+        while currentNodeB != nil {
+            if currentNodeA?.data == currentNodeB?.data {
+                return currentNodeB?.data
+            }
+            currentNodeB = currentNodeB?.next
+        }
+        currentNodeA = currentNodeA?.next
+    }
+    return nil
+}
+
+func findMergePointDictionary(headA: Node?, headB: Node?) -> Int? {
+    var currentA = headA
+    var aDict = [Int?: Bool]()
+    
+    while currentA?.next != nil {
+        aDict[currentA?.data] = true
+        currentA = currentA?.next
+    }
+    
+    var currentB = headB
+    while currentB?.next != nil {
+        if aDict[currentB?.data] == true {
+            return currentB?.data
+        }
+        currentB = currentB?.next
+    }
+    
     return nil
 }
 
@@ -68,4 +98,5 @@ let node10 = Node(10, node11)
 printLinkedList(node1)
 printLinkedList(node10)
 
-findMerge(headA: node1, headB: node10)
+findMergeBruteForce(headA: node1, headB: node10)
+findMergePointDictionary(headA: node1, headB: node10)

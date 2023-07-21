@@ -22,9 +22,40 @@ import UIKit
  - if the block ends in anything other than -xxx or -xx reformat to a block of two like xx-xx (not obvious)
  
  */
-func solution(_ S : String) -> String {
-    // do your work here
-    return ""
+func solution(_ S : String) -> String { //O(n)
+    let newString = S.replacingOccurrences(of: "-", with: "").replacingOccurrences(of: " ", with: "")
+    
+    if newString.count <= 3 {
+        return newString
+    }
+    
+    var stringArray = Array(newString)
+    var result = [String]()
+    
+    if stringArray.count == 4 {
+        result.append(String(stringArray.prefix(2)))
+        result.append(String(stringArray.suffix(2)))
+        return result.joined(separator: "-")
+    }
+    
+    var temp = ""
+    for string in stringArray {
+        temp.append(string)
+        stringArray.remove(at: 0)
+        
+        if temp.count == 3 {
+            result.append(temp)
+            temp = ""
+            
+            if stringArray.count == 4 {
+                result.append(String(stringArray.prefix(2)))
+                result.append(String(stringArray.suffix(2)))
+                break
+            }
+        }
+    }
+    
+    return result.joined(separator: "-")
 }
 
 solution("123456789")           // 123-456-789
