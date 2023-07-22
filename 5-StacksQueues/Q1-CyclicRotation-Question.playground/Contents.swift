@@ -70,7 +70,8 @@ func solutionQueueLeft(A: [Int], K: Int) -> [Int] {
     
     // treat like a queue enqueuing and dequeuing off the end
     for _ in 1...K {
-        // Do your work here...
+        //let item = result.removeFirst()
+        result.append(result.removeFirst())
     }
     
     return result
